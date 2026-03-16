@@ -1,0 +1,341 @@
+[
+    {
+        "id": "e41447b7dce9cf23",
+        "type": "tab",
+        "label": "RemoteLock",
+        "disabled": false
+    },
+    {
+        "id": "ff92977a2eb28828",
+        "type": "ui_template",
+        "z": "e41447b7dce9cf23",
+        "group": "7c354ee1708f3f1e",
+        "name": "RemoteLock Dashboard",
+        "order": 1,
+        "width": "18",
+        "height": "8",
+        "format": "<style>\n  * {\n    box-sizing: border-box;\n    margin: 0;\n    padding: 0;\n  }\n\n  .s-header {\n    display: flex;\n    align-items: center;\n    gap: 12px;\n    padding: 12px 16px;\n    background: #0a0a0f;\n    border-bottom: 1px solid #1e1e28;\n    margin-bottom: 16px;\n    border-radius: 8px;\n  }\n\n  .s-header-icon {\n    flex-shrink: 0;\n  }\n\n  .s-header-title {\n    font-size: 18px;\n    font-weight: 700;\n    color: #f0f0f0;\n    letter-spacing: 1px;\n  }\n\n  .s-header-sub {\n    font-size: 10px;\n    color: #444;\n    letter-spacing: 1.5px;\n    text-transform: uppercase;\n    margin-top: 1px;\n  }\n\n  .s-header-right {\n    margin-left: auto;\n    display: flex;\n    align-items: center;\n    gap: 20px;\n    flex-wrap: wrap;\n  }\n\n  .s-stats {\n    display: flex;\n    gap: 16px;\n    align-items: center;\n  }\n\n  .s-stat {\n    font-size: 11px;\n    color: #444;\n  }\n\n  .s-stat span {\n    color: #888;\n    font-weight: 500;\n  }\n\n  .s-rssi-bar {\n    display: flex;\n    gap: 3px;\n    align-items: flex-end;\n    height: 12px;\n  }\n\n  .s-rssi-bar div {\n    width: 3px;\n    border-radius: 1px;\n    background: #1e1e28;\n  }\n\n  .s-rssi-bar div.on {\n    background: #4ade80;\n  }\n\n  .s-esp {\n    display: flex;\n    align-items: center;\n    gap: 6px;\n  }\n\n  .s-dot {\n    width: 8px;\n    height: 8px;\n    border-radius: 50%;\n    background: #333;\n  }\n\n  .s-dot.online {\n    background: #4ade80;\n    box-shadow: 0 0 6px #4ade8088;\n  }\n\n  .s-dot.offline {\n    background: #ef4444;\n  }\n\n  .s-esp-lbl {\n    font-size: 11px;\n    color: #555;\n  }\n\n  .s-esp-lbl.online {\n    color: #4ade80;\n  }\n\n  .s-esp-lbl.offline {\n    color: #ef4444;\n  }\n\n  .s-body {\n    display: grid;\n    grid-template-columns: repeat(3, 1fr);\n    gap: 14px;\n  }\n\n  .s-card {\n    background: #111116;\n    border: 1px solid #1e1e28;\n    border-radius: 10px;\n    padding: 16px;\n  }\n\n  .s-card-title {\n    font-size: 10px;\n    font-weight: 600;\n    letter-spacing: 1.2px;\n    text-transform: uppercase;\n    color: #333;\n    margin-bottom: 14px;\n  }\n\n  .s-status-bar {\n    background: #0a0a0f;\n    border: 1px solid #1e1e28;\n    border-radius: 8px;\n    padding: 8px 14px;\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    margin-bottom: 14px;\n  }\n\n  .s-status-left {\n    display: flex;\n    align-items: center;\n    gap: 10px;\n  }\n\n  .s-status-label {\n    font-size: 11px;\n    color: #555;\n  }\n\n  .s-status-val {\n    font-size: 14px;\n    font-weight: 700;\n    color: #f0f0f0;\n    letter-spacing: 0.5px;\n  }\n\n  .s-leds {\n    display: flex;\n    gap: 6px;\n  }\n\n  .s-led {\n    width: 11px;\n    height: 11px;\n    border-radius: 50%;\n    background: #1e1e28;\n    flex-shrink: 0;\n  }\n\n  .s-divider {\n    border: none;\n    border-top: 1px solid #1e1e28;\n    margin: 12px 0;\n  }\n\n  .s-input {\n    width: 100%;\n    background: #0a0a0f;\n    border: 1px solid #1e1e28;\n    border-radius: 7px;\n    padding: 8px 12px;\n    color: #e0e0e0;\n    font-size: 12px;\n    outline: none;\n    margin-bottom: 8px;\n  }\n\n  .s-input::placeholder {\n    color: #2a2a35;\n  }\n\n  .s-input:focus {\n    border-color: #3a3a50;\n  }\n\n  .s-btn {\n    width: 100%;\n    padding: 9px;\n    border-radius: 7px;\n    border: none;\n    font-size: 11px;\n    font-weight: 700;\n    cursor: pointer;\n    letter-spacing: 1px;\n    text-transform: uppercase;\n    transition: opacity 0.15s;\n  }\n\n  .s-btn:hover {\n    opacity: 0.85;\n  }\n\n  .s-btn:active {\n    opacity: 0.7;\n  }\n\n  .s-btn-green {\n    background: #14532d;\n    color: #4ade80;\n  }\n\n  .s-btn-blue {\n    background: #1e3a5f;\n    color: #60a5fa;\n  }\n\n  .s-btn-amber {\n    background: #431407;\n    color: #fb923c;\n  }\n\n  .s-alert {\n    background: #1a0f0f;\n    border: 1px solid #7f1d1d;\n    border-radius: 7px;\n    padding: 9px 12px;\n    font-size: 11px;\n    color: #f87171;\n    margin-top: 10px;\n    align-items: center;\n    gap: 8px;\n    display: none;\n  }\n\n  .s-alert.show {\n    display: flex;\n  }\n\n  .s-sec-rows {\n    display: flex;\n    flex-direction: column;\n    gap: 7px;\n    margin-bottom: 12px;\n  }\n\n  .s-sec-item {\n    display: flex;\n    align-items: center;\n    gap: 10px;\n    padding: 8px 10px;\n    border-radius: 7px;\n    border: 1px solid #1e1e28;\n    transition: all 0.2s;\n  }\n\n  .s-sec-item.active-low {\n    border-color: #14532d;\n    background: #0a1f12;\n  }\n\n  .s-sec-item.active-medium {\n    border-color: #713f12;\n    background: #1a1000;\n  }\n\n  .s-sec-item.active-high {\n    border-color: #7f1d1d;\n    background: #1a0808;\n  }\n\n  .s-sec-led {\n    width: 10px;\n    height: 10px;\n    border-radius: 50%;\n    flex-shrink: 0;\n  }\n\n  .s-sec-name {\n    font-size: 12px;\n    font-weight: 600;\n    color: #444;\n  }\n\n  .s-sec-item.active-low .s-sec-name {\n    color: #4ade80;\n  }\n\n  .s-sec-item.active-medium .s-sec-name {\n    color: #facc15;\n  }\n\n  .s-sec-item.active-high .s-sec-name {\n    color: #f87171;\n  }\n\n  .s-sec-desc {\n    font-size: 10px;\n    color: #2a2a35;\n    margin-top: 1px;\n  }\n\n  .s-sec-item.active-low .s-sec-desc {\n    color: #166534;\n  }\n\n  .s-sec-item.active-medium .s-sec-desc {\n    color: #854d0e;\n  }\n\n  .s-sec-item.active-high .s-sec-desc {\n    color: #991b1b;\n  }\n\n  .s-totp-code {\n    font-size: 28px;\n    font-weight: 700;\n    letter-spacing: 6px;\n    text-align: center;\n    padding: 12px 0 4px;\n    font-family: 'Courier New', monospace;\n    color: #60a5fa;\n  }\n\n  .s-totp-meta {\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    margin-bottom: 10px;\n  }\n\n  .s-countdown {\n    font-size: 11px;\n    color: #444;\n  }\n\n  .s-countdown em {\n    color: #fb923c;\n    font-style: normal;\n    font-weight: 700;\n  }\n\n  .s-exp-badge {\n    background: #1a0808;\n    border: 1px solid #7f1d1d;\n    border-radius: 5px;\n    padding: 2px 7px;\n    font-size: 10px;\n    color: #f87171;\n    letter-spacing: 0.5px;\n    display: none;\n  }\n\n  .s-exp-badge.show {\n    display: block;\n  }\n\n  .s-totp-hint {\n    margin-top: 10px;\n    font-size: 10px;\n    color: #2a2a35;\n    text-align: center;\n    line-height: 1.7;\n  }\n\n  .s-login-overlay { \n    width: 100%; \n    min-height: 384px; \n    background: #0a0a0f; \n    display: flex; \n    align-items: center;\n    justify-content: center;\n  }\n\n  .s-login-card {\n    background: #111116;\n    border: 1px solid #23232e;\n    border-radius: 14px;\n    padding: 36px 32px;\n    width: 380px;\n    text-align: center;\n  }\n\n  .s-login-icon {\n    margin-bottom: 20px;\n  }\n\n  .s-login-title {\n    font-size: 22px;\n    font-weight: 700;\n    color: #f0f0f0;\n    letter-spacing: 1.5px;\n    margin-bottom: 4px;\n  }\n\n  .s-login-sub {\n    font-size: 11px;\n    color: #444;\n    letter-spacing: 1.5px;\n    text-transform: uppercase;\n    margin-bottom: 28px;\n  }\n\n  .s-login-input {\n    width: 100%;\n    background: #0a0a0f;\n    border: 1px solid #1e1e28;\n    border-radius: 8px;\n    padding: 10px 14px;\n    color: #e0e0e0;\n    font-size: 14px;\n    outline: none;\n    margin-bottom: 12px;\n    text-align: center;\n    letter-spacing: 4px;\n    box-sizing: border-box;\n  }\n\n  .s-login-input:focus {\n    border-color: #3a3a50;\n  }\n\n  .s-login-input::placeholder {\n    letter-spacing: 0;\n    color: #2a2a35;\n  }\n\n  .s-login-btn { width: 100%;\n    padding: 11px; \n    border-radius: 8px; \n    border: none; \n    font-size: 12px; \n    font-weight: 700; \n    cursor: pointer; \n    letter-spacing: 0.5px; \n    text-transform: uppercase; \n    background: #1e3a5f; \n    color: #60a5fa; \n    margin-bottom: 12px;\n    transition: opacity 0.15s; \n    white-space: nowrap; }\n\n  .s-login-btn:hover {\n    opacity: 0.85;\n  }\n\n  .s-login-error {\n    font-size: 11px;\n    color: #f87171;\n    height: 16px;\n    margin-top: 4px;\n  }\n\n  .s-logout {\n    font-size: 10px;\n    color: #333;\n    text-decoration: none;\n    cursor: pointer;\n    margin-left: 8px;\n    background: none;\n    border: none;\n    padding: 0;\n  }\n\n  .s-logout:hover {\n    color: #555;\n  }\n</style>\n\n\n<div class=\"s-login-overlay\" id=\"s-login-overlay\">\n  <div class=\"s-login-card\">\n    <div class=\"s-login-icon\">\n      <svg width=\"48\" height=\"48\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#60a5fa\" stroke-width=\"1.5\">\n        <path d=\"M12 2L3 7v5c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V7L12 2z\" />\n        <polyline points=\"9 12 11 14 15 10\" stroke=\"#60a5fa\" stroke-width=\"1.5\" />\n      </svg>\n    </div>\n    <div class=\"s-login-title\">SENTINEL</div>\n    <div class=\"s-login-sub\">Smart Lock System</div>\n    <input class=\"s-login-input\" type=\"password\" id=\"s-login-pwd\" placeholder=\"Enter password\" onkeydown=\"if(event.key==='Enter') sLogin()\">\n    <button class=\"s-login-btn\" onclick=\"sLogin()\">UNLOCK</button>\n    <div class=\"s-login-error\" id=\"s-login-err\"></div>\n  </div>\n</div>\n\n<div id=\"s-root\" style=\"display:none\">\n  <div class=\"s-header\">\n    <div class=\"s-header-icon\">\n      <svg width=\"26\" height=\"26\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#60a5fa\" stroke-width=\"1.5\">\n        <path d=\"M12 2L3 7v5c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V7L12 2z\" />\n        <polyline points=\"9 12 11 14 15 10\" stroke=\"#60a5fa\" stroke-width=\"1.5\" />\n      </svg>\n    </div>\n    <div>\n      <div class=\"s-header-title\">SENTINEL</div>\n      <div class=\"s-header-sub\">Smart Lock System</div>\n    </div>\n    <button class=\"s-logout\" onclick=\"sLogout()\">LOGOUT</button>\n    <div class=\"s-header-right\">\n      <div class=\"s-stats\">\n        <div class=\"s-stat\">Uptime <span id=\"s-uptime\">—</span></div>\n        <div class=\"s-stat\">RSSI <span id=\"s-rssi\">—</span></div>\n        <div class=\"s-rssi-bar\">\n          <div style=\"height:3px\" id=\"b1\"></div>\n          <div style=\"height:6px\" id=\"b2\"></div>\n          <div style=\"height:9px\" id=\"b3\"></div>\n          <div style=\"height:12px\" id=\"b4\"></div>\n        </div>\n      </div>\n      <div class=\"s-esp\">\n        <div class=\"s-dot\" id=\"s-dot\"></div>\n        <span class=\"s-esp-lbl\" id=\"s-esp-lbl\">Connecting...</span>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"s-body\">\n    <div class=\"s-card\">\n      <div class=\"s-card-title\">Lock Control</div>\n      <div class=\"s-status-bar\">\n        <div class=\"s-status-left\">\n          <span class=\"s-status-label\">Status</span>\n          <span class=\"s-status-val\" id=\"s-lock-txt\">—</span>\n        </div>\n        <div class=\"s-leds\">\n          <div class=\"s-led\" id=\"s-led-red\"></div>\n          <div class=\"s-led\" id=\"s-led-green\"></div>\n        </div>\n      </div>\n      <input class=\"s-input\" type=\"password\" id=\"s-upwd\" placeholder=\"Password (medium security only)\">\n      <button class=\"s-btn s-btn-green\" onclick=\"sUnlock()\">UNLOCK</button>\n      <div class=\"s-alert\" id=\"s-alert\">\n        <svg width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#f87171\" stroke-width=\"2.5\">\n          <path d=\"M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z\" />\n          <line x1=\"12\" y1=\"9\" x2=\"12\" y2=\"13\" />\n          <line x1=\"12\" y1=\"17\" x2=\"12.01\" y2=\"17\" />\n        </svg>\n        <span id=\"s-alert-txt\"></span>\n      </div>\n    </div>\n\n    <div class=\"s-card\">\n      <div class=\"s-card-title\">Security Level</div>\n      <div class=\"s-sec-rows\">\n        <div class=\"s-sec-item active-low\" id=\"sec-low\">\n          <div class=\"s-sec-led\" style=\"background:#4ade80\"></div>\n          <div>\n            <div class=\"s-sec-name\">LOW</div>\n            <div class=\"s-sec-desc\">IR remote + dashboard</div>\n          </div>\n        </div>\n        <div class=\"s-sec-item\" id=\"sec-medium\">\n          <div class=\"s-sec-led\" style=\"background:#facc15\"></div>\n          <div>\n            <div class=\"s-sec-name\">MEDIUM</div>\n            <div class=\"s-sec-desc\">Dashboard only</div>\n          </div>\n        </div>\n        <div class=\"s-sec-item\" id=\"sec-high\">\n          <div class=\"s-sec-led\" style=\"background:#ef4444\"></div>\n          <div>\n            <div class=\"s-sec-name\">HIGH</div>\n            <div class=\"s-sec-desc\">TOTP via IR only</div>\n          </div>\n        </div>\n      </div>\n      <hr class=\"s-divider\">\n      <input class=\"s-input\" type=\"password\" id=\"s-apwd\" placeholder=\"Admin password\">\n      <button class=\"s-btn s-btn-blue\" onclick=\"sSecurity()\">CHANGE SECURITY LEVEL</button>\n    </div>\n\n    <div class=\"s-card\">\n      <div class=\"s-card-title\">TOTP — High Security</div>\n      <div class=\"s-totp-code\" id=\"s-totp-code\">— — — — — —</div>\n      <div class=\"s-totp-meta\">\n        <span class=\"s-countdown\">Expires in <em id=\"s-totp-secs\">—</em></span>\n        <div class=\"s-exp-badge\" id=\"s-exp-badge\">EXPIRED</div>\n      </div>\n      <hr class=\"s-divider\">\n      <button class=\"s-btn s-btn-amber\" onclick=\"sTotpRefresh()\">REFRESH TOTP</button>\n      <div class=\"s-totp-hint\">Switch to HIGH, press refresh,<br>read code, enter via IR remote</div>\n    </div>\n  </div>\n</div>\n\n<script>\n  (function(scope) {\n  window.sSec = 'LOW';\n\n  scope.$watch('msg', function(msg) {\n    if (!msg || !msg.topic) return;\n    var t = msg.topic, p = String(msg.payload);\n\n    if (t === 'home/lock/state') {\n      document.getElementById('s-lock-txt').textContent = p;\n      document.getElementById('s-led-red').style.background = p==='LOCKED' ? '#ef4444' : '#1e1e28';\n      document.getElementById('s-led-green').style.background = p==='UNLOCKED' ? '#4ade80' : '#1e1e28';\n    }\n    if (t === 'home/lock/security/state') {\n      window.sSec = p;\n      ['low','medium','high'].forEach(function(l) {\n        var el = document.getElementById('sec-'+l);\n        el.className = 's-sec-item';\n        if (p.toLowerCase()===l) el.classList.add('active-'+l);\n      });\n      if (p !== 'HIGH') {\n        document.getElementById('s-totp-code').textContent = '— — — — — —';\n        document.getElementById('s-totp-code').style.color = '#60a5fa';\n        document.getElementById('s-totp-secs').textContent = '—';\n        document.getElementById('s-exp-badge').classList.remove('show');\n      }\n    }\n    if (t === 'home/lock/totp/code') {\n      document.getElementById('s-totp-code').textContent = (p && p!=='----') ? p.substring(0,3)+' '+p.substring(3,6) : '— — — — — —';\n      document.getElementById('s-totp-code').style.color = '#60a5fa';\n      document.getElementById('s-exp-badge').classList.remove('show');\n    }\n    if (t === 'home/lock/totp/expiry') {\n      var s=parseInt(p), exp=s<=0;\n      document.getElementById('s-totp-secs').textContent = exp?'0s':s+'s';\n      document.getElementById('s-exp-badge').classList.toggle('show', exp);\n      document.getElementById('s-totp-code').style.color = exp?'#2a2a35':'#60a5fa';\n    }\n    if (t === 'home/lock/status') {\n      var on = p==='ONLINE';\n      document.getElementById('s-dot').className = 's-dot '+(on?'online':'offline');\n      document.getElementById('s-esp-lbl').className = 's-esp-lbl '+(on?'online':'offline');\n      document.getElementById('s-esp-lbl').textContent = on ? 'ESP32 online' : 'ESP32 offline';\n    }\n    if (t === 'home/lock/alert') {\n      document.getElementById('s-alert-txt').textContent = p;\n      document.getElementById('s-alert').classList.add('show');\n      setTimeout(function(){ document.getElementById('s-alert').classList.remove('show'); }, 8000);\n    }\n    if (t === 'home/lock/heartbeat') {\n      try {\n        var d=JSON.parse(p);\n        if (d.uptime!=null) {\n          var u=parseInt(d.uptime), h=Math.floor(u/3600), m=Math.floor((u%3600)/60), s=u%60;\n          document.getElementById('s-uptime').textContent = h>0?h+'h '+m+'m':m>0?m+'m '+s+'s':s+'s';\n        }\n        if (d.rssi!=null) {\n          var r=parseInt(d.rssi);\n          document.getElementById('s-rssi').textContent = r+'dBm';\n          var sig=r>-55?4:r>-65?3:r>-75?2:1;\n          [1,2,3,4].forEach(function(i){ document.getElementById('b'+i).style.background=i<=sig?'#4ade80':'#1e1e28'; });\n        }\n      } catch(e) {}\n    }\n  });\n\n  window.sUnlock = function() {\n    if (window.sSec === 'HIGH') return;\n    var p = {};\n    if (window.sSec === 'MEDIUM') p.password = document.getElementById('s-upwd').value;\n    document.getElementById('s-upwd').value = '';\n    scope.send({payload: JSON.stringify(p), topic: 'home/lock/unlock/cmd'});\n  };\n\n  window.sSecurity = function() {\n    var p = document.getElementById('s-apwd').value;\n    document.getElementById('s-apwd').value = '';\n    scope.send({payload: JSON.stringify({password: p}), topic: 'home/lock/security/cmd'});\n  };\n\n  window.sTotpRefresh = function() {\n    scope.send({payload: '{}', topic: 'home/lock/totp/refresh'});\n  };\n\n  var DASHBOARD_PASSWORD = '1234';\n\n  window.sLogin = function() {\n    var pwd = document.getElementById('s-login-pwd').value;\n    if (pwd === DASHBOARD_PASSWORD) {\n      var overlay = document.getElementById('s-login-overlay');\n      overlay.style.display = 'none';\n      document.getElementById('s-root').style.display = 'block';\n      document.getElementById('s-login-pwd').value = '';\n      setTimeout(function() {\n        scope.send({payload: 'REPLAY', topic: 'home/sentinel/replay'});\n      }, 300);\n    } else {\n      document.getElementById('s-login-err').textContent = 'Incorrect password';\n      document.getElementById('s-login-pwd').value = '';\n      setTimeout(function() {\n        document.getElementById('s-login-err').textContent = '';\n      }, 2000);\n    }\n  };\n\n  window.sLogout = function() {\n    document.getElementById('s-root').style.display = 'none';\n    document.getElementById('s-login-overlay').style.display = 'flex';\n    document.getElementById('s-login-pwd').value = '';\n    document.getElementById('s-login-err').textContent = '';\n  };\n\n})(scope);\n</script>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 410,
+        "y": 240,
+        "wires": [
+            [
+                "5a8ef03400da86bd"
+            ]
+        ]
+    },
+    {
+        "id": "5a8ef03400da86bd",
+        "type": "function",
+        "z": "e41447b7dce9cf23",
+        "name": "Route Outbound",
+        "func": "var t = msg.topic;\nif (t === 'home/lock/unlock/cmd' || t === 'home/lock/security/cmd' || t === 'home/lock/totp/refresh' || t === 'home/sentinel/replay') {\n    return msg;\n}\nreturn null;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 240,
+        "wires": [
+            [
+                "c2988b0c23f338ff"
+            ]
+        ]
+    },
+    {
+        "id": "c2988b0c23f338ff",
+        "type": "mqtt out",
+        "z": "e41447b7dce9cf23",
+        "name": "Publish Commands",
+        "topic": "",
+        "qos": "1",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "1889ade0a1e00edf",
+        "x": 810,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "2017d13cb8e6e5bc",
+        "type": "mqtt in",
+        "z": "e41447b7dce9cf23",
+        "name": "Lock State",
+        "topic": "home/lock/state",
+        "qos": "1",
+        "datatype": "utf8",
+        "broker": "1889ade0a1e00edf",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 80,
+        "y": 100,
+        "wires": [
+            [
+                "5904c930747b528a"
+            ]
+        ]
+    },
+    {
+        "id": "93a6b7f279cedde2",
+        "type": "mqtt in",
+        "z": "e41447b7dce9cf23",
+        "name": "Security State",
+        "topic": "home/lock/security/state",
+        "qos": "1",
+        "datatype": "utf8",
+        "broker": "1889ade0a1e00edf",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 70,
+        "y": 300,
+        "wires": [
+            [
+                "5904c930747b528a"
+            ]
+        ]
+    },
+    {
+        "id": "e7a285080566209c",
+        "type": "mqtt in",
+        "z": "e41447b7dce9cf23",
+        "name": "TOTP Code",
+        "topic": "home/lock/totp/code",
+        "qos": "1",
+        "datatype": "utf8",
+        "broker": "1889ade0a1e00edf",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 70,
+        "y": 240,
+        "wires": [
+            [
+                "5904c930747b528a"
+            ]
+        ]
+    },
+    {
+        "id": "a99eb0c6524a7973",
+        "type": "mqtt in",
+        "z": "e41447b7dce9cf23",
+        "name": "TOTP Expiry",
+        "topic": "home/lock/totp/expiry",
+        "qos": "1",
+        "datatype": "utf8",
+        "broker": "1889ade0a1e00edf",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 70,
+        "y": 200,
+        "wires": [
+            [
+                "5904c930747b528a"
+            ]
+        ]
+    },
+    {
+        "id": "48b44fecdda6dea9",
+        "type": "mqtt in",
+        "z": "e41447b7dce9cf23",
+        "name": "ESP32 Status",
+        "topic": "home/lock/status",
+        "qos": "1",
+        "datatype": "utf8",
+        "broker": "1889ade0a1e00edf",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 70,
+        "y": 160,
+        "wires": [
+            [
+                "5904c930747b528a"
+            ]
+        ]
+    },
+    {
+        "id": "7ffd403d5bd69947",
+        "type": "mqtt in",
+        "z": "e41447b7dce9cf23",
+        "name": "Alert",
+        "topic": "home/lock/alert",
+        "qos": "1",
+        "datatype": "utf8",
+        "broker": "1889ade0a1e00edf",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 70,
+        "y": 360,
+        "wires": [
+            [
+                "5904c930747b528a"
+            ]
+        ]
+    },
+    {
+        "id": "27ba4edfe547146b",
+        "type": "mqtt in",
+        "z": "e41447b7dce9cf23",
+        "name": "Heartbeat",
+        "topic": "home/lock/heartbeat",
+        "qos": "1",
+        "datatype": "utf8",
+        "broker": "1889ade0a1e00edf",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 100,
+        "y": 420,
+        "wires": [
+            [
+                "5904c930747b528a"
+            ]
+        ]
+    },
+    {
+        "id": "5904c930747b528a",
+        "type": "function",
+        "z": "e41447b7dce9cf23",
+        "name": "Store State",
+        "func": "var state = flow.get('sentinel_state') || {};\nif (msg.topic !== 'home/lock/alert') {\n    state[msg.topic] = msg.payload;\n    flow.set('sentinel_state', state);\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 140,
+        "wires": [
+            [
+                "ff92977a2eb28828"
+            ]
+        ]
+    },
+    {
+        "id": "ac74420ff725d145",
+        "type": "function",
+        "z": "e41447b7dce9cf23",
+        "name": "Replay State",
+        "func": "var state = flow.get('sentinel_state') || {};\ndelete state['home/lock/alert'];\nflow.set('sentinel_state', state);\nvar msgs = [];\nObject.keys(state).forEach(function(topic) {\n    if (topic !== 'home/lock/alert') {\n        msgs.push({topic: topic, payload: state[topic]});\n    }\n});\nreturn [msgs];",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 590,
+        "y": 440,
+        "wires": [
+            [
+                "ff92977a2eb28828"
+            ]
+        ]
+    },
+    {
+        "id": "a06a2f05b88e39e9",
+        "type": "mqtt in",
+        "z": "e41447b7dce9cf23",
+        "name": "",
+        "topic": "home/sentinel/replay",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "1889ade0a1e00edf",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 130,
+        "y": 480,
+        "wires": [
+            [
+                "ac74420ff725d145"
+            ]
+        ]
+    },
+    {
+        "id": "7c354ee1708f3f1e",
+        "type": "ui_group",
+        "name": "RemoteLock",
+        "tab": "ui_tab_main",
+        "order": 1,
+        "disp": false,
+        "width": "18",
+        "collapse": false
+    },
+    {
+        "id": "1889ade0a1e00edf",
+        "type": "mqtt-broker",
+        "name": "Mosquitto Rpi",
+        "broker": "192.168.100.13",
+        "port": "8883",
+        "tls": "4573c4a09abbd839",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": true,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "ui_tab_main",
+        "type": "ui_tab",
+        "name": "RemoteLock",
+        "icon": "lock",
+        "order": 1
+    },
+    {
+        "id": "4573c4a09abbd839",
+        "type": "tls-config",
+        "name": "RPi TLS",
+        "cert": "",
+        "key": "",
+        "ca": "",
+        "certname": "",
+        "keyname": "",
+        "caname": "rpi_ca.crt",
+        "servername": "",
+        "verifyservercert": false,
+        "alpnprotocol": ""
+    },
+    {
+        "id": "e60f24b9ab49cabd",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-dashboard": "3.6.6"
+        }
+    }
+]

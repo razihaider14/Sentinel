@@ -1,0 +1,717 @@
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  .s-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: #0a0a0f;
+    border-bottom: 1px solid #1e1e28;
+    margin-bottom: 16px;
+    border-radius: 8px;
+  }
+
+  .s-header-icon {
+    flex-shrink: 0;
+  }
+
+  .s-header-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #f0f0f0;
+    letter-spacing: 1px;
+  }
+
+  .s-header-sub {
+    font-size: 10px;
+    color: #444;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: 1px;
+  }
+
+  .s-header-right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .s-stats {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .s-stat {
+    font-size: 11px;
+    color: #444;
+  }
+
+  .s-stat span {
+    color: #888;
+    font-weight: 500;
+  }
+
+  .s-rssi-bar {
+    display: flex;
+    gap: 3px;
+    align-items: flex-end;
+    height: 12px;
+  }
+
+  .s-rssi-bar div {
+    width: 3px;
+    border-radius: 1px;
+    background: #1e1e28;
+  }
+
+  .s-rssi-bar div.on {
+    background: #4ade80;
+  }
+
+  .s-esp {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .s-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #333;
+  }
+
+  .s-dot.online {
+    background: #4ade80;
+    box-shadow: 0 0 6px #4ade8088;
+  }
+
+  .s-dot.offline {
+    background: #ef4444;
+  }
+
+  .s-esp-lbl {
+    font-size: 11px;
+    color: #555;
+  }
+
+  .s-esp-lbl.online {
+    color: #4ade80;
+  }
+
+  .s-esp-lbl.offline {
+    color: #ef4444;
+  }
+
+  .s-body {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+
+  .s-card {
+    background: #111116;
+    border: 1px solid #1e1e28;
+    border-radius: 10px;
+    padding: 16px;
+  }
+
+  .s-card-title {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: #333;
+    margin-bottom: 14px;
+  }
+
+  .s-status-bar {
+    background: #0a0a0f;
+    border: 1px solid #1e1e28;
+    border-radius: 8px;
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  .s-status-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .s-status-label {
+    font-size: 11px;
+    color: #555;
+  }
+
+  .s-status-val {
+    font-size: 14px;
+    font-weight: 700;
+    color: #f0f0f0;
+    letter-spacing: 0.5px;
+  }
+
+  .s-leds {
+    display: flex;
+    gap: 6px;
+  }
+
+  .s-led {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: #1e1e28;
+    flex-shrink: 0;
+  }
+
+  .s-divider {
+    border: none;
+    border-top: 1px solid #1e1e28;
+    margin: 12px 0;
+  }
+
+  .s-input {
+    width: 100%;
+    background: #0a0a0f;
+    border: 1px solid #1e1e28;
+    border-radius: 7px;
+    padding: 8px 12px;
+    color: #e0e0e0;
+    font-size: 12px;
+    outline: none;
+    margin-bottom: 8px;
+  }
+
+  .s-input::placeholder {
+    color: #2a2a35;
+  }
+
+  .s-input:focus {
+    border-color: #3a3a50;
+  }
+
+  .s-btn {
+    width: 100%;
+    padding: 9px;
+    border-radius: 7px;
+    border: none;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: opacity 0.15s;
+  }
+
+  .s-btn:hover {
+    opacity: 0.85;
+  }
+
+  .s-btn:active {
+    opacity: 0.7;
+  }
+
+  .s-btn-green {
+    background: #14532d;
+    color: #4ade80;
+  }
+
+  .s-btn-blue {
+    background: #1e3a5f;
+    color: #60a5fa;
+  }
+
+  .s-btn-amber {
+    background: #431407;
+    color: #fb923c;
+  }
+
+  .s-alert {
+    background: #1a0f0f;
+    border: 1px solid #7f1d1d;
+    border-radius: 7px;
+    padding: 9px 12px;
+    font-size: 11px;
+    color: #f87171;
+    margin-top: 10px;
+    align-items: center;
+    gap: 8px;
+    display: none;
+  }
+
+  .s-alert.show {
+    display: flex;
+  }
+
+  .s-sec-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-bottom: 12px;
+  }
+
+  .s-sec-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 7px;
+    border: 1px solid #1e1e28;
+    transition: all 0.2s;
+  }
+
+  .s-sec-item.active-low {
+    border-color: #14532d;
+    background: #0a1f12;
+  }
+
+  .s-sec-item.active-medium {
+    border-color: #713f12;
+    background: #1a1000;
+  }
+
+  .s-sec-item.active-high {
+    border-color: #7f1d1d;
+    background: #1a0808;
+  }
+
+  .s-sec-led {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .s-sec-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: #444;
+  }
+
+  .s-sec-item.active-low .s-sec-name {
+    color: #4ade80;
+  }
+
+  .s-sec-item.active-medium .s-sec-name {
+    color: #facc15;
+  }
+
+  .s-sec-item.active-high .s-sec-name {
+    color: #f87171;
+  }
+
+  .s-sec-desc {
+    font-size: 10px;
+    color: #2a2a35;
+    margin-top: 1px;
+  }
+
+  .s-sec-item.active-low .s-sec-desc {
+    color: #166534;
+  }
+
+  .s-sec-item.active-medium .s-sec-desc {
+    color: #854d0e;
+  }
+
+  .s-sec-item.active-high .s-sec-desc {
+    color: #991b1b;
+  }
+
+  .s-totp-code {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 6px;
+    text-align: center;
+    padding: 12px 0 4px;
+    font-family: 'Courier New', monospace;
+    color: #60a5fa;
+  }
+
+  .s-totp-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .s-countdown {
+    font-size: 11px;
+    color: #444;
+  }
+
+  .s-countdown em {
+    color: #fb923c;
+    font-style: normal;
+    font-weight: 700;
+  }
+
+  .s-exp-badge {
+    background: #1a0808;
+    border: 1px solid #7f1d1d;
+    border-radius: 5px;
+    padding: 2px 7px;
+    font-size: 10px;
+    color: #f87171;
+    letter-spacing: 0.5px;
+    display: none;
+  }
+
+  .s-exp-badge.show {
+    display: block;
+  }
+
+  .s-totp-hint {
+    margin-top: 10px;
+    font-size: 10px;
+    color: #2a2a35;
+    text-align: center;
+    line-height: 1.7;
+  }
+
+  .s-login-overlay { 
+    width: 100%; 
+    min-height: 384px; 
+    background: #0a0a0f; 
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+  }
+
+  .s-login-card {
+    background: #111116;
+    border: 1px solid #23232e;
+    border-radius: 14px;
+    padding: 36px 32px;
+    width: 380px;
+    text-align: center;
+  }
+
+  .s-login-icon {
+    margin-bottom: 20px;
+  }
+
+  .s-login-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #f0f0f0;
+    letter-spacing: 1.5px;
+    margin-bottom: 4px;
+  }
+
+  .s-login-sub {
+    font-size: 11px;
+    color: #444;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+
+  .s-login-input {
+    width: 100%;
+    background: #0a0a0f;
+    border: 1px solid #1e1e28;
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: #e0e0e0;
+    font-size: 14px;
+    outline: none;
+    margin-bottom: 12px;
+    text-align: center;
+    letter-spacing: 4px;
+    box-sizing: border-box;
+  }
+
+  .s-login-input:focus {
+    border-color: #3a3a50;
+  }
+
+  .s-login-input::placeholder {
+    letter-spacing: 0;
+    color: #2a2a35;
+  }
+
+  .s-login-btn { width: 100%;
+    padding: 11px; 
+    border-radius: 8px; 
+    border: none; 
+    font-size: 12px; 
+    font-weight: 700; 
+    cursor: pointer; 
+    letter-spacing: 0.5px; 
+    text-transform: uppercase; 
+    background: #1e3a5f; 
+    color: #60a5fa; 
+    margin-bottom: 12px;
+    transition: opacity 0.15s; 
+    white-space: nowrap; }
+
+  .s-login-btn:hover {
+    opacity: 0.85;
+  }
+
+  .s-login-error {
+    font-size: 11px;
+    color: #f87171;
+    height: 16px;
+    margin-top: 4px;
+  }
+
+  .s-logout {
+    font-size: 10px;
+    color: #333;
+    text-decoration: none;
+    cursor: pointer;
+    margin-left: 8px;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+
+  .s-logout:hover {
+    color: #555;
+  }
+</style>
+
+
+<div class="s-login-overlay" id="s-login-overlay">
+  <div class="s-login-card">
+    <div class="s-login-icon">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.5">
+        <path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V7L12 2z" />
+        <polyline points="9 12 11 14 15 10" stroke="#60a5fa" stroke-width="1.5" />
+      </svg>
+    </div>
+    <div class="s-login-title">SENTINEL</div>
+    <div class="s-login-sub">Smart Lock System</div>
+    <input class="s-login-input" type="password" id="s-login-pwd" placeholder="Enter password" onkeydown="if(event.key==='Enter') sLogin()">
+    <button class="s-login-btn" onclick="sLogin()">UNLOCK</button>
+    <div class="s-login-error" id="s-login-err"></div>
+  </div>
+</div>
+
+<div id="s-root" style="display:none">
+  <div class="s-header">
+    <div class="s-header-icon">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.5">
+        <path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V7L12 2z" />
+        <polyline points="9 12 11 14 15 10" stroke="#60a5fa" stroke-width="1.5" />
+      </svg>
+    </div>
+    <div>
+      <div class="s-header-title">SENTINEL</div>
+      <div class="s-header-sub">Smart Lock System</div>
+    </div>
+    <button class="s-logout" onclick="sLogout()">LOGOUT</button>
+    <div class="s-header-right">
+      <div class="s-stats">
+        <div class="s-stat">Uptime <span id="s-uptime">—</span></div>
+        <div class="s-stat">RSSI <span id="s-rssi">—</span></div>
+        <div class="s-rssi-bar">
+          <div style="height:3px" id="b1"></div>
+          <div style="height:6px" id="b2"></div>
+          <div style="height:9px" id="b3"></div>
+          <div style="height:12px" id="b4"></div>
+        </div>
+      </div>
+      <div class="s-esp">
+        <div class="s-dot" id="s-dot"></div>
+        <span class="s-esp-lbl" id="s-esp-lbl">Connecting...</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="s-body">
+    <div class="s-card">
+      <div class="s-card-title">Lock Control</div>
+      <div class="s-status-bar">
+        <div class="s-status-left">
+          <span class="s-status-label">Status</span>
+          <span class="s-status-val" id="s-lock-txt">—</span>
+        </div>
+        <div class="s-leds">
+          <div class="s-led" id="s-led-red"></div>
+          <div class="s-led" id="s-led-green"></div>
+        </div>
+      </div>
+      <input class="s-input" type="password" id="s-upwd" placeholder="Password (medium security only)">
+      <button class="s-btn s-btn-green" onclick="sUnlock()">UNLOCK</button>
+      <div class="s-alert" id="s-alert">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2.5">
+          <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+          <line x1="12" y1="9" x2="12" y2="13" />
+          <line x1="12" y1="17" x2="12.01" y2="17" />
+        </svg>
+        <span id="s-alert-txt"></span>
+      </div>
+    </div>
+
+    <div class="s-card">
+      <div class="s-card-title">Security Level</div>
+      <div class="s-sec-rows">
+        <div class="s-sec-item active-low" id="sec-low">
+          <div class="s-sec-led" style="background:#4ade80"></div>
+          <div>
+            <div class="s-sec-name">LOW</div>
+            <div class="s-sec-desc">IR remote + dashboard</div>
+          </div>
+        </div>
+        <div class="s-sec-item" id="sec-medium">
+          <div class="s-sec-led" style="background:#facc15"></div>
+          <div>
+            <div class="s-sec-name">MEDIUM</div>
+            <div class="s-sec-desc">Dashboard only</div>
+          </div>
+        </div>
+        <div class="s-sec-item" id="sec-high">
+          <div class="s-sec-led" style="background:#ef4444"></div>
+          <div>
+            <div class="s-sec-name">HIGH</div>
+            <div class="s-sec-desc">TOTP via IR only</div>
+          </div>
+        </div>
+      </div>
+      <hr class="s-divider">
+      <input class="s-input" type="password" id="s-apwd" placeholder="Admin password">
+      <button class="s-btn s-btn-blue" onclick="sSecurity()">CHANGE SECURITY LEVEL</button>
+    </div>
+
+    <div class="s-card">
+      <div class="s-card-title">TOTP — High Security</div>
+      <div class="s-totp-code" id="s-totp-code">— — — — — —</div>
+      <div class="s-totp-meta">
+        <span class="s-countdown">Expires in <em id="s-totp-secs">—</em></span>
+        <div class="s-exp-badge" id="s-exp-badge">EXPIRED</div>
+      </div>
+      <hr class="s-divider">
+      <button class="s-btn s-btn-amber" onclick="sTotpRefresh()">REFRESH TOTP</button>
+      <div class="s-totp-hint">Switch to HIGH, press refresh,<br>read code, enter via IR remote</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function(scope) {
+  window.sSec = 'LOW';
+
+  scope.$watch('msg', function(msg) {
+    if (!msg || !msg.topic) return;
+    var t = msg.topic, p = String(msg.payload);
+
+    if (t === 'home/lock/state') {
+      document.getElementById('s-lock-txt').textContent = p;
+      document.getElementById('s-led-red').style.background = p==='LOCKED' ? '#ef4444' : '#1e1e28';
+      document.getElementById('s-led-green').style.background = p==='UNLOCKED' ? '#4ade80' : '#1e1e28';
+    }
+    if (t === 'home/lock/security/state') {
+      window.sSec = p;
+      ['low','medium','high'].forEach(function(l) {
+        var el = document.getElementById('sec-'+l);
+        el.className = 's-sec-item';
+        if (p.toLowerCase()===l) el.classList.add('active-'+l);
+      });
+      if (p !== 'HIGH') {
+        document.getElementById('s-totp-code').textContent = '— — — — — —';
+        document.getElementById('s-totp-code').style.color = '#60a5fa';
+        document.getElementById('s-totp-secs').textContent = '—';
+        document.getElementById('s-exp-badge').classList.remove('show');
+      }
+    }
+    if (t === 'home/lock/totp/code') {
+      document.getElementById('s-totp-code').textContent = (p && p!=='----') ? p.substring(0,3)+' '+p.substring(3,6) : '— — — — — —';
+      document.getElementById('s-totp-code').style.color = '#60a5fa';
+      document.getElementById('s-exp-badge').classList.remove('show');
+    }
+    if (t === 'home/lock/totp/expiry') {
+      var s=parseInt(p), exp=s<=0;
+      document.getElementById('s-totp-secs').textContent = exp?'0s':s+'s';
+      document.getElementById('s-exp-badge').classList.toggle('show', exp);
+      document.getElementById('s-totp-code').style.color = exp?'#2a2a35':'#60a5fa';
+    }
+    if (t === 'home/lock/status') {
+      var on = p==='ONLINE';
+      document.getElementById('s-dot').className = 's-dot '+(on?'online':'offline');
+      document.getElementById('s-esp-lbl').className = 's-esp-lbl '+(on?'online':'offline');
+      document.getElementById('s-esp-lbl').textContent = on ? 'ESP32 online' : 'ESP32 offline';
+    }
+    if (t === 'home/lock/alert') {
+      document.getElementById('s-alert-txt').textContent = p;
+      document.getElementById('s-alert').classList.add('show');
+      setTimeout(function(){ document.getElementById('s-alert').classList.remove('show'); }, 8000);
+    }
+    if (t === 'home/lock/heartbeat') {
+      try {
+        var d=JSON.parse(p);
+        if (d.uptime!=null) {
+          var u=parseInt(d.uptime), h=Math.floor(u/3600), m=Math.floor((u%3600)/60), s=u%60;
+          document.getElementById('s-uptime').textContent = h>0?h+'h '+m+'m':m>0?m+'m '+s+'s':s+'s';
+        }
+        if (d.rssi!=null) {
+          var r=parseInt(d.rssi);
+          document.getElementById('s-rssi').textContent = r+'dBm';
+          var sig=r>-55?4:r>-65?3:r>-75?2:1;
+          [1,2,3,4].forEach(function(i){ document.getElementById('b'+i).style.background=i<=sig?'#4ade80':'#1e1e28'; });
+        }
+      } catch(e) {}
+    }
+  });
+
+  window.sUnlock = function() {
+    if (window.sSec === 'HIGH') return;
+    var p = {};
+    if (window.sSec === 'MEDIUM') p.password = document.getElementById('s-upwd').value;
+    document.getElementById('s-upwd').value = '';
+    scope.send({payload: JSON.stringify(p), topic: 'home/lock/unlock/cmd'});
+  };
+
+  window.sSecurity = function() {
+    var p = document.getElementById('s-apwd').value;
+    document.getElementById('s-apwd').value = '';
+    scope.send({payload: JSON.stringify({password: p}), topic: 'home/lock/security/cmd'});
+  };
+
+  window.sTotpRefresh = function() {
+    scope.send({payload: '{}', topic: 'home/lock/totp/refresh'});
+  };
+
+  var DASHBOARD_PASSWORD = '1234';
+
+  window.sLogin = function() {
+    var pwd = document.getElementById('s-login-pwd').value;
+    if (pwd === DASHBOARD_PASSWORD) {
+      var overlay = document.getElementById('s-login-overlay');
+      overlay.style.display = 'none';
+      document.getElementById('s-root').style.display = 'block';
+      document.getElementById('s-login-pwd').value = '';
+      setTimeout(function() {
+        scope.send({payload: 'REPLAY', topic: 'home/sentinel/replay'});
+      }, 300);
+    } else {
+      document.getElementById('s-login-err').textContent = 'Incorrect password';
+      document.getElementById('s-login-pwd').value = '';
+      setTimeout(function() {
+        document.getElementById('s-login-err').textContent = '';
+      }, 2000);
+    }
+  };
+
+  window.sLogout = function() {
+    document.getElementById('s-root').style.display = 'none';
+    document.getElementById('s-login-overlay').style.display = 'flex';
+    document.getElementById('s-login-pwd').value = '';
+    document.getElementById('s-login-err').textContent = '';
+  };
+
+})(scope);
+</script>

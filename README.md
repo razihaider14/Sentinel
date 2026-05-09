@@ -119,7 +119,7 @@ Flash to ESP32 via USB or OTA.
 ### 3. Node-RED Dashboard
 - Import `Dashboard/NodeRedFlow.json` into Node-RED
 - Configure the MQTT broker node with your Pi's IP, credentials, and CA certificate
-- Paste `Dashboard/SentinelDashboard.html` into the template node
+- The html will already be inside the template node, it is given here to see clearly. 
 - Set dashboard password in the HTML: `var DASHBOARD_PASSWORD = 'your_password'`
 - Deploy
 

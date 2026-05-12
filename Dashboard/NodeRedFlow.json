@@ -2,7 +2,7 @@
     {
         "id": "e41447b7dce9cf23",
         "type": "tab",
-        "label": "RemoteLock",
+        "label": "Sentinel",
         "disabled": false
     },
     {
@@ -10,7 +10,7 @@
         "type": "ui_template",
         "z": "e41447b7dce9cf23",
         "group": "7c354ee1708f3f1e",
-        "name": "RemoteLock Dashboard",
+        "name": "Sentinel Dashboard",
         "order": 1,
         "width": "18",
         "height": "8",
@@ -281,7 +281,7 @@
         "id": "1889ade0a1e00edf",
         "type": "mqtt-broker",
         "name": "Mosquitto Rpi",
-        "broker": "192.168.100.13",
+        "broker": "ip",
         "port": "8883",
         "tls": "4573c4a09abbd839",
         "clientid": "",

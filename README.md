@@ -4,7 +4,7 @@ A multi-layer IoT security system built on ESP32 with MQTT over TLS, featuring t
 
 ---
 
-## 📸 Screenshots
+##  Screenshots
 
 | Dashboard | Login |
 |-----------|-------|
@@ -16,20 +16,20 @@ A multi-layer IoT security system built on ESP32 with MQTT over TLS, featuring t
 
 ---
 
-## ✨ Features
+##  Features
 
-- **Three Security Levels** — LOW, MEDIUM, and HIGH, switchable from the dashboard
-- **IR Remote Entry** — Enter password via IR remote, displayed live on LCD
-- **TOTP Authentication** — Time-based One-Time Password for HIGH security mode
-- **MQTT over TLS** — Encrypted communication between ESP32 and Raspberry Pi broker
-- **Custom Dashboard** — Dark-themed Node-RED dashboard with login, live status, and controls
-- **OTA Updates** — Flash new firmware wirelessly via ArduinoOTA
-- **Lockout Protection** — 5 consecutive failures trigger buzzer alert and dashboard notification
-- **Live Monitoring** — ESP32 uptime, RSSI signal strength, and online/offline status on dashboard
+- **Three Security Levels** : LOW, MEDIUM, and HIGH, switchable from the dashboard
+- **IR Remote Entry** : Enter password via IR remote, displayed live on LCD
+- **TOTP Authentication** : Time-based One-Time Password for HIGH security mode
+- **MQTT over TLS** : Encrypted communication between ESP32 and Raspberry Pi broker
+- **Custom Dashboard** : Dark-themed Node-RED dashboard with login, live status, and controls
+- **OTA Updates** : Flash new firmware wirelessly via ArduinoOTA
+- **Lockout Protection** : 5 consecutive failures trigger buzzer alert and dashboard notification
+- **Live Monitoring** : ESP32 uptime, RSSI signal strength, and online/offline status on dashboard
 
 ---
 
-## 🔐 Security Levels
+##  Security Levels
 
 | Level | IR Remote | Dashboard | Authentication |
 |-------|-----------|-----------|----------------|
@@ -39,11 +39,11 @@ A multi-layer IoT security system built on ESP32 with MQTT over TLS, featuring t
 
 ---
 
-## 🛠️ Hardware
+##  Hardware
 
 | Component | Details |
 |-----------|---------|
-| Microcontroller | ESP32 WROOM-32 (38-pin DevKit) |
+| Microcontroller | ESP32 WROOM-32 (30-pin DevKit) |
 | Display | 16x2 LCD with I2C module (0x27) |
 | Remote | IR Receiver + NEC remote |
 | Actuator | SG90 Servo Motor |
@@ -64,7 +64,7 @@ A multi-layer IoT security system built on ESP32 with MQTT over TLS, featuring t
 
 ---
 
-## 🏗️ Architecture
+##  Architecture
 
 ```
 IR Remote ──→ ESP32 ──→ MQTT/TLS ──→ Raspberry Pi Mosquitto ──→ Node-RED Dashboard
@@ -74,7 +74,7 @@ IR Remote ──→ ESP32 ──→ MQTT/TLS ──→ Raspberry Pi Mosquitto �
 
 ---
 
-## 📦 Libraries
+##  Libraries
 
 ### ESP32 (Arduino IDE)
 - `IRremote` by shirriff
@@ -91,7 +91,7 @@ IR Remote ──→ ESP32 ──→ MQTT/TLS ──→ Raspberry Pi Mosquitto �
 
 ---
 
-## ⚙️ Setup
+##  Setup
 
 ### 1. Raspberry Pi — Mosquitto Broker
 ```bash
@@ -102,16 +102,20 @@ Configure TLS with your own CA and server certificates. Place them in `/etc/mosq
 ### 2. ESP32 Firmware
 Open `ESP32/ESP32.ino` in Arduino IDE and fill in:
 ```cpp
-const char* ssid         = "YOUR_SSID";
-const char* wifiPassword = "YOUR_WIFI_PASSWORD";
-const char* mqtt_server  = "YOUR_RPI_IP";
-const char* ca_cert      = "YOUR_CA_CERT";
+const char* ssid          = "*****";
+const char* wifiPassword  = "*****";
+const char* mqtt_server  = "ip";
+const char* ca_cert = R"EOF(
+-----BEGIN CERTIFICATE-----
+****************************
+-----END CERTIFICATE-----
+)EOF";
 ```
 
 Change the passwords:
 ```cpp
-const String lockPassword  = "YOUR_LOCK_PASSWORD";   // 6 digits
-const String adminPassword = "YOUR_ADMIN_PASSWORD";  // 6 digits
+const String lockPassword  = "123456";
+const String adminPassword = "654321";
 ```
 
 Flash to ESP32 via USB or OTA.
@@ -120,7 +124,7 @@ Flash to ESP32 via USB or OTA.
 - Import `Dashboard/NodeRedFlow.json` into Node-RED
 - Configure the MQTT broker node with your Pi's IP, credentials, and CA certificate
 - The html will already be inside the template node, it is given here to see clearly. 
-- Set dashboard password in the HTML: `var DASHBOARD_PASSWORD = 'your_password'`
+- Set dashboard password in the HTML: `var DASHBOARD_PASSWORD = '1234';`
 - Deploy
 
 ---

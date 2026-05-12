@@ -322,7 +322,6 @@ String irDecodeDigit(uint32_t raw) {
 }
 
 void handleIR() {
-  // Unsuppress IR after delay
   if (irSuppressed && millis() - irSuppressTime >= IR_SUPPRESS_DURATION) {
     irSuppressed = false;
   }
@@ -332,7 +331,6 @@ void handleIR() {
   uint32_t raw = IrReceiver.decodedIRData.decodedRawData;
   IrReceiver.resume();
 
-  // Ignore IR noise right after servo moves
   if (irSuppressed) return;
 
   if (securityLevel == MEDIUM_SEC) {

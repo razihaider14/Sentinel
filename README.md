@@ -172,4 +172,4 @@ MIT License — see [LICENSE](LICENSE) for details.
 
 ---
 
-*Built as a learning project exploring IoT security, MQTT, TLS, and embedded systems.*
+*Built as a learning project exploring IoT security, MQTT, TLS, and embedded systems.* 
